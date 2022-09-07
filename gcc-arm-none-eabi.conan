@@ -1,0 +1,27 @@
+target_host=arm-none-eabi
+standalone_toolchain=/opt/gcc-arm-10.3-2021.07-x86_64-arm-none-eabi
+cc_compiler=gcc
+cxx_compiler=g++
+
+[settings]
+os=Linux
+arch=armv6
+compiler=gcc
+compiler.version=10
+compiler.libcxx=libstdc++11
+build_type=Release
+
+[env]
+CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host
+CONAN_CMAKE_TOOLCHAIN_FILE=/opt/gcc-arm-none-eabi.cmake
+PATH=[$standalone_toolchain/bin]
+CHOST=$target_host
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+LD=$target_host-ld
+STRIP=$target_host-strip
+CC=$target_host-$cc_compiler
+CXX=$target_host-$cxx_compiler
+CXXFLAGS="-I $standalone_toolchain/$target_host/include -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 --specs=nosys.spec"
+CFLAGS="-I $standalone_toolchain/$target_host/include  -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 --specs=nosys.spec"
